@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de conhecimento A1–C2</title>
+<style>
+:root{
+  --bg:#f7f6f2;--card:#fff;--ink:#1d1d1b;--muted:#6b6a64;--line:#e4e2db;
+  --accent:#b4441f;--accent-soft:#f6e6df;--ok:#2f6b3a;--ok-soft:#e3efe4;--warn:#8a6100;--warn-soft:#f6edd5;
+  --radius:10px;--font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--card:#201f1c;--ink:#ecebe6;--muted:#a3a19a;--line:#33312c;--accent:#e2805c;--accent-soft:#3a2720;--ok:#8cc49a;--ok-soft:#1f2e22;--warn:#e0b85a;--warn-soft:#332a14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--font)}
+header{padding:20px 16px 12px;max-width:960px;margin:0 auto}
+h1{font-size:20px;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13.5px;margin:0}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px 12px}
+.stat b{display:block;font-size:18px}
+.stat span{font-size:12px;color:var(--muted)}
+nav.tabs{display:flex;gap:4px;max-width:960px;margin:0 auto;padding:0 16px}
+nav.tabs button{flex:0 0 auto;border:0;background:none;color:var(--muted);font:inherit;font-weight:600;padding:10px 12px;border-bottom:2px solid transparent;cursor:pointer}
+nav.tabs button[aria-selected=true]{color:var(--ink);border-color:var(--accent)}
+.bar{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line)}
+.filters{max-width:960px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.levels{display:flex;gap:4px}
+.levels button,.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 11px;font:600 13px var(--font);cursor:pointer;transition:background .15s,border-color .15s}
+.levels button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 10px}
+input[type=search]{flex:1 1 180px;min-width:0}
+label.toggle{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+main{max-width:960px;margin:0 auto;padding:12px 16px 60px}
+details.inv{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px}
+details.inv>summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+details.inv>summary::-webkit-details-marker{display:none}
+details.inv>summary h2{font-size:16px;margin:0}
+details.inv>summary .meta{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.inv-note{font-size:13px;color:var(--muted);padding:0 14px 8px;margin:0}
+ul.nodes{list-style:none;margin:0;padding:0 6px 8px}
+li.node>button{all:unset;box-sizing:border-box;display:flex;gap:10px;width:100%;padding:8px;border-radius:8px;cursor:pointer;align-items:baseline}
+li.node>button:hover{background:var(--accent-soft)}
+li.node>button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.ref{font:600 12px ui-monospace,Menlo,monospace;color:var(--muted);min-width:46px}
+.t{flex:1}
+.t small{display:block;color:var(--muted);font-size:12.5px}
+.lv{font:600 11.5px var(--font);color:var(--muted);white-space:nowrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:6px;vertical-align:middle}
+.dot.v{background:var(--ok)}.dot.p{background:var(--warn)}
+.d1>button .t{font-weight:600}
+.d3>button{padding-left:26px}.d4>button{padding-left:40px}
+.detail{margin:4px 8px 10px;padding:12px 14px;border-left:3px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0;font-size:14px}
+.detail dl{display:grid;grid-template-columns:42px 1fr;gap:6px 10px;margin:8px 0}
+.detail dt{font:600 12px var(--font);color:var(--accent);padding-top:2px}
+.detail dd{margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:12px;border-radius:999px;padding:3px 9px;background:var(--accent-soft);color:var(--ink);border:0;cursor:pointer;font-family:inherit}
+.tag.pre{background:var(--line)}
+.badge{font-size:11.5px;font-weight:600;border-radius:6px;padding:2px 7px}
+.badge.v{background:var(--ok-soft);color:var(--ok)}.badge.p{background:var(--warn-soft);color:var(--warn)}
+a{color:var(--accent)}
+.empty{color:var(--muted);padding:24px 4px}
+.ct{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.ct h3{margin:0 0 6px;font-size:15.5px}
+.ct .eixo{font-size:12px;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0;font-size:14px}
+.pair div{padding:8px 10px;border-radius:8px}
+.pair .no{background:var(--accent-soft)}.pair .no::before{content:"✗ ";color:var(--accent);font-weight:700}
+.pair .yes{background:var(--ok-soft)}.pair .yes::before{content:"✓ ";color:var(--ok);font-weight:700}
+@media(min-width:640px){.pair{grid-template-columns:1fr 1fr}}
+.legend{font-size:12.5px;color:var(--muted);margin:4px 0 10px}
+.ficha{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.ficha h4{margin:0 0 4px;font-size:14.5px}
+.obj{font-size:13.5px;color:var(--muted);margin:0 0 8px}
+.regra{margin:6px 0}
+.cpt{background:var(--warn-soft);border-radius:8px;padding:8px 10px;font-size:13.5px;margin:8px 0}
+.cpt b{color:var(--warn)}
+.exs{list-style:none;padding:0;margin:8px 0}
+.exs li{padding:6px 0;border-bottom:1px dashed var(--line)}
+.exs .pt{display:block;color:var(--muted);font-size:13px}
+mark{background:var(--accent-soft);color:inherit;border-radius:3px;padding:0 2px}
+.voc{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;margin:8px 0}
+.vc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;font-size:13px}
+.vc svg{width:48px;height:48px;display:block;margin:0 auto 4px}
+.vc .l{font-weight:600}
+.vc .l .m{color:#2b63b5}.vc .l .f{color:#b5345a}
+.vc .p{color:var(--muted);font-size:12px}
+.vc .al{display:block;margin-top:4px;font-size:11.5px;color:var(--warn)}
+.ex{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:13.5px}
+.ex .tp{font-size:11.5px;color:var(--muted)}
+.ex details summary{cursor:pointer;color:var(--accent);font-size:12.5px;margin-top:4px}
+.badge.c{background:var(--accent-soft);color:var(--accent)}
+
+</style>
+</head>
+<body>
+<header>
+  <h1>Mapa de conhecimento do espanhol, A1–C2</h1>
+  <p class="sub">Estrutura do app, seção por seção, a partir do Plan Curricular del Instituto Cervantes. Etapa 2: conteúdo do A1 escrito (marcado com A1); demais níveis em estrutura.</p>
+  <div class="stats" id="stats"></div>
+</header>
+<div class="bar">
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="mapa">Mapa</button>
+    <button role="tab" aria-selected="false" data-tab="contrastes">Contrastes PT–ES</button>
+  </nav>
+  <div class="filters" id="filters">
+    <div class="levels" id="levels" role="group" aria-label="Nível"></div>
+    <select id="modulo" aria-label="Módulo"><option value="">Todos os módulos</option></select>
+    <input type="search" id="q" placeholder="Buscar (ex.: gustar, subjuntivo, cores)" aria-label="Buscar">
+    <label class="toggle"><input type="checkbox" id="soVer"> só conferidos</label>
+    <label class="toggle"><input type="checkbox" id="soCont"> só com conteúdo</label>
+  </div>
+</div>
+<main id="main"></main>
+<footer style="max-width:960px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--muted)">Base curricular: Plan Curricular del Instituto Cervantes. Ilustrações: <a href="https://openmoji.org">OpenMoji</a>, licença CC BY-SA 4.0.</footer>
+<script id="dados" type="application/json">__DADOS__</script>
+<script>
+const D = JSON.parse(document.getElementById('dados').textContent);
+const M = D.mapa, C = D.contrastes, FI = D.fichas || [], IMG = D.imagens || {};
+const fichasDe = {}; FI.forEach(f => (fichasDe[f.no_mapa] ||= []).push(f));
+const byId = Object.fromEntries(M.nos.map(n => [n.id, n]));
+const ctById = Object.fromEntries(C.contrastes.map(c => [c.id, c]));
+const MODS = {"regras":"Regras","estrutura-da-frase":"Estrutura da frase","pronuncia-e-escuta":"Pronúncia e escuta","ortografia":"Ortografia","expressoes":"Expressões","vocabulario":"Vocabulário","leitura-e-escrita":"Leitura e escrita","cultura":"Cultura","estrategias":"Estratégias"};
+const LV = ["Todos","A1","A2","B1","B2","C1","C2"];
+const FASE = {A:"Fase A (A1–A2)",B:"Fase B (B1–B2)",C:"Fase C (C1–C2)"};
+let st = {tab:"mapa", nivel:"Todos", modulo:"", q:"", soVer:false, soCont:false, aberto:null};
+try { Object.assign(st, JSON.parse(localStorage.getItem('mapa-filtros')||'{}'), {aberto:null}); } catch(e){}
+const save = () => { try { localStorage.setItem('mapa-filtros', JSON.stringify({nivel:st.nivel, modulo:st.modulo, soVer:st.soVer})); } catch(e){} };
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+
+function stats(){
+  const n = M.nos.length, v = M.nos.filter(x=>x.verificado).length;
+  const fichas = M.nos.reduce((a,x)=>a+Object.keys(x.status).length,0);
+  const a1 = M.nos.filter(x=>x.nivel_inicio==='A1').length;
+  document.getElementById('stats').innerHTML = [
+    [n,'seções no mapa'],[FI.length+' / '+fichas,'fichas escritas'],[FI.reduce((a,f)=>a+(f.vocabulario||[]).length,0),'palavras A1'],[a1,'começam no A1'],[Math.round(100*v/n)+'%','conferidas no PCIC'],[C.contrastes.length,'contrastes PT–ES']
+  ].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
+}
+function filtros(){
+  document.getElementById('levels').innerHTML = LV.map(l=>`<button aria-pressed="${st.nivel===l}" data-lv="${l}">${l}</button>`).join('');
+  const sel = document.getElementById('modulo');
+  sel.innerHTML = '<option value="">Todos os módulos</option>' + Object.entries(MODS).map(([k,v])=>`<option value="${k}" ${st.modulo===k?'selected':''}>${v}</option>`).join('');
+  document.getElementById('soVer').checked = st.soVer;
+}
+function passa(n){
+  if (st.nivel!=='Todos' && !n.niveis.includes(st.nivel)) return false;
+  if (st.modulo && n.modulo!==st.modulo) return false;
+  if (st.soVer && !n.verificado) return false;
+  if (st.soCont && !fichasDe[n.id]) return false;
+  if (st.q){
+    const hay = norm([n.titulo.es,n.titulo.pt,n.pcic_ref,...Object.values(n.resumo),n.nota,...(fichasDe[n.id]||[]).map(f=>JSON.stringify(f))].join(' '));
+    if (!norm(st.q).split(/\s+/).every(w=>hay.includes(w))) return false;
+  }
+  return true;
+}
+function niveisTxt(n){ return n.por_fase ? n.grupos.map(g=>g).join(' · ') : (n.niveis.length===6?'A1–C2':n.niveis[0]+'–'+n.niveis[n.niveis.length-1]); }
+
+const TIPOS = {"imagem-para-palavra":"Imagem → palavra","lacuna":"Completar","montar-frase":"Montar a frase","transformar":"Transformar","achar-o-erro":"Achar o erro","ditado":"Ditado","pares-minimos":"Pares mínimos","silaba-tonica":"Sílaba tônica","escolha-em-contexto":"Escolha em contexto","producao-livre":"Produção livre","fluencia-cronometrada":"Fluência"};
+function marca(t, d){ if(!d) return esc(t); const i=t.indexOf(d.split(' / ')[0].split('…')[0].trim()); if(i<0) return esc(t); const k=d.split(' / ')[0].split('…')[0].trim(); return esc(t.slice(0,i))+'<mark>'+esc(k)+'</mark>'+esc(t.slice(i+k.length)); }
+function lemaCor(v){ const a=v.artigo; const c = a==='el'||a==='los' ? 'm' : (a==='la'||a==='las' ? 'f' : ''); return c ? `<span class="${c}">${esc(v.lema)}</span>` : esc(v.lema); }
+function fichaHTML(f){
+  const resp = r => Array.isArray(r) ? r.join(' · ') : r;
+  return `<div class="ficha"><span class="badge c">${esc(f.nivel)} · ${esc(f.status)}</span>
+    <h4>${esc(f.titulo.pt)} <small style="color:var(--muted);font-weight:400">${esc(f.titulo.es)}</small></h4>
+    <p class="obj">${esc(f.objetivo)}</p>
+    <p class="regra">${esc(f.explicacao.regra)}</p>
+    <div class="cpt"><b>Português × espanhol:</b> ${esc(f.explicacao.contraste_pt)}</div>
+    ${f.vocabulario ? `<div class="voc">${f.vocabulario.map(v=>`<div class="vc">${v.imagem && IMG[v.imagem.slice(3)] ? IMG[v.imagem.slice(3)] : ''}<div class="l">${lemaCor(v)}</div><div class="p">${esc(v.pt)}</div>${v.alerta_pt?`<span class="al">⚠ ${esc(v.alerta_pt)}</span>`:''}</div>`).join('')}</div><p class="legend">Cor do lema: <span style="color:#2b63b5">masculino</span> · <span style="color:#b5345a">feminino</span></p>` : ''}
+    <ul class="exs">${f.exemplos.map(e=>`<li>${marca(e.es,e.destaque)}<span class="pt">${esc(e.pt)}</span></li>`).join('')}</ul>
+    ${f.erros_tipicos.length?`<div class="pair">${f.erros_tipicos.map(e=>`<div class="no">${esc(e.errado)}</div><div class="yes">${esc(e.certo)}<br><small>${esc(e.por_que)}</small></div>`).join('')}</div>`:''}
+    <p class="legend" style="margin-top:10px"><b>Exercícios</b> (tente responder antes de abrir)</p>
+    ${f.exercicios.map(x=>`<div class="ex"><span class="tp">${esc(TIPOS[x.tipo]||x.tipo)} · ${esc(x.vertente||'')}</span><div>${esc(x.enunciado)}</div><details><summary>Ver resposta</summary>${esc(resp(x.resposta))}${x.feedback_erro?`<br><small>${esc(x.feedback_erro)}</small>`:''}</details></div>`).join('')}
+  </div>`;
+}
+function detalhe(n){
+  const res = Object.entries(n.resumo);
+  const ordem = n.por_fase ? ['A','B','C'] : M.niveis;
+  res.sort((a,b)=>ordem.indexOf(a[0])-ordem.indexOf(b[0]));
+  const dl = res.length ? `<dl>${res.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : `<p class="legend">Detalhe por nível ainda não extraído: entra na etapa de conteúdo de cada nível.</p>`;
+  const ct = n.contrastes.map(id=>`<button class="tag" data-ct="${id}">${esc(ctById[id]?.titulo||id)}</button>`).join('');
+  const pre = n.prerequisitos.map(id=>`<button class="tag pre" data-go="${id}">antes: ${esc(byId[id]?.titulo.pt||id)}</button>`).join('');
+  return `<div class="detail">
+    <div><span class="badge ${n.verificado?'v':'p'}">${n.verificado?'Conferido no PCIC':'Estrutura provisória: conferir'}</span>
+    <span class="legend"> · início no app: <b>${esc(n.nivel_inicio)}</b> · ${n.por_fase?'por fases':'níveis '+esc(niveisTxt(n))} · módulo ${esc(MODS[n.modulo])}</span></div>
+    ${dl}
+    ${n.nota?`<p class="legend">${esc(n.nota)}</p>`:''}
+    ${(ct||pre)?`<div class="tags">${pre}${ct}</div>`:''}
+    ${n.fonte?`<p class="legend"><a href="${esc(n.fonte)}">Ver no PCIC (${esc(n.inventario)} ${esc(n.pcic_ref)})</a></p>`:''}
+    ${(fichasDe[n.id]||[]).map(fichaHTML).join('')}
+  </div>`;
+}
+function renderMapa(){
+  const main = document.getElementById('main');
+  let total = 0;
+  const html = M.inventarios.map(inv=>{
+    const nos = M.nos.filter(n=>n.inventario===inv.id && passa(n));
+    if (!nos.length) return '';
+    total += nos.length;
+    const items = nos.map(n=>`<li class="node d${Math.min(n.profundidade,4)}">
+      <button data-id="${n.id}" aria-expanded="${st.aberto===n.id}">
+        <span class="ref">${esc(n.pcic_ref ?? '')}</span>
+        <span class="t">${esc(n.titulo.pt)}<small>${esc(n.titulo.es)}</small></span>
+        <span class="lv">${fichasDe[n.id]?'<span class="badge c">A1</span> ':''}${esc(niveisTxt(n))}<span class="dot ${n.verificado?'v':'p'}" title="${n.verificado?'conferido':'provisório'}"></span></span>
+      </button>${st.aberto===n.id?detalhe(n):''}</li>`).join('');
+    const open = st.q || st.nivel!=='Todos' || st.modulo || st.soCont || M.inventarios.length<3;
+    return `<details class="inv" ${open?'open':''}><summary><h2>${esc(inv.nome_pt)}</h2><span class="meta">${nos.length} seções</span></summary>
+      ${inv.nota?`<p class="inv-note">${esc(inv.nota)}</p>`:''}<ul class="nodes">${items}</ul></details>`;
+  }).join('');
+  main.innerHTML = `<p class="legend"><span class="dot v"></span> conferido no índice/inventário do PCIC &nbsp; <span class="dot p"></span> estrutura provisória, a conferir · toque numa seção para ver o que entra em cada nível</p>` + (html || `<p class="empty">Nada encontrado com esses filtros.</p>`);
+}
+function renderContrastes(){
+  const q = norm(st.q);
+  const lista = C.contrastes.filter(c=>!q || norm(JSON.stringify(c)).includes(q));
+  document.getElementById('main').innerHTML = `<p class="legend">${esc(C.descricao)}</p>` + lista.map(c=>{
+    const nos = M.nos.filter(n=>n.contrastes.includes(c.id));
+    return `<article class="ct" id="${c.id}"><span class="eixo">${esc(MODS[c.eixo]||c.eixo)}</span><h3>${esc(c.titulo)}</h3>
+      <p><b>PT:</b> ${esc(c.pt)}<br><b>ES:</b> ${esc(c.es)}</p>
+      ${c.errado?`<div class="pair"><div class="no">${esc(c.errado)}</div><div class="yes">${esc(c.certo)}</div></div>`:''}
+      ${c.nota?`<p class="legend">${esc(c.nota)}</p>`:''}
+      <div class="tags">${nos.slice(0,8).map(n=>`<button class="tag pre" data-go="${n.id}">${esc(n.titulo.pt)}</button>`).join('')}${nos.length>8?`<span class="legend">+${nos.length-8}</span>`:''}</div></article>`;
+  }).join('');
+}
+function render(){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.tab===st.tab));
+  document.getElementById('levels').style.display = st.tab==='mapa'?'':'none';
+  document.getElementById('modulo').style.display = st.tab==='mapa'?'':'none';
+  document.querySelectorAll('label.toggle').forEach(l=>l.style.display = st.tab==='mapa'?'':'none');
+  st.tab==='mapa' ? renderMapa() : renderContrastes();
+}
+document.addEventListener('click', e=>{
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.dataset.tab){ st.tab=t.dataset.tab; render(); return; }
+  if (t.dataset.lv){ st.nivel=t.dataset.lv; save(); filtros(); render(); return; }
+  if (t.dataset.id){ st.aberto = st.aberto===t.dataset.id?null:t.dataset.id; render(); return; }
+  if (t.dataset.ct){ st.tab='contrastes'; st.q=''; document.getElementById('q').value=''; render(); document.getElementById(t.dataset.ct)?.scrollIntoView({block:'start'}); return; }
+  if (t.dataset.go){ st.tab='mapa'; st.nivel='Todos'; st.modulo=''; st.q=''; st.soVer=false; st.aberto=t.dataset.go; document.getElementById('q').value=''; filtros(); render();
+    document.querySelector(`[data-id="${t.dataset.go}"]`)?.scrollIntoView({block:'center'}); }
+});
+document.getElementById('modulo').addEventListener('change', e=>{st.modulo=e.target.value; save(); render();});
+document.getElementById('soVer').addEventListener('change', e=>{st.soVer=e.target.checked; save(); render();});
+document.getElementById('soCont').addEventListener('change', e=>{st.soCont=e.target.checked; render();});
+let tm; document.getElementById('q').addEventListener('input', e=>{clearTimeout(tm); tm=setTimeout(()=>{st.q=e.target.value.trim(); render();},120);});
+stats(); filtros(); render();
+</script>
+</body>
+</html>

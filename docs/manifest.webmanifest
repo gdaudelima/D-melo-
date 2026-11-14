@@ -1,0 +1,17 @@
+{
+  "name": "Dímelo — espanhol para brasileiros",
+  "short_name": "Dímelo",
+  "description": "Estudo pessoal de espanhol do A1 ao C2, com revisão espaçada e foco nos erros de quem fala português.",
+  "lang": "pt-BR",
+  "start_url": "./#hoje",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F8FB",
+  "theme_color": "#1F3E99",
+  "icons": [
+    { "src": "icons/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

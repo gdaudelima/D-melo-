@@ -1,0 +1,197 @@
+[
+ {
+  "teste": "abre na tela Hoje",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Hoje",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "sem rolagem horizontal: Hoje",
+  "passou": true,
+  "detalhe": "[390, 390]"
+ },
+ {
+  "teste": "service worker controla a página",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "etapa 1 mostra objetivo",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Entrada",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Regra",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "erro mostra explicação 'Por quê'",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Correção",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "prática termina",
+  "passou": true,
+  "detalhe": "5 respostas"
+ },
+ {
+  "teste": "item errado volta na mesma sessão (passo curto do FSRS)",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "unidade concluída",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "respostas viraram cartões FSRS",
+  "passou": true,
+  "detalhe": "2"
+ },
+ {
+  "teste": "progresso persiste após recarregar (Sou capaz de…)",
+  "passou": true,
+  "detalhe": "Seu progresso\n\nPronto para usar sem internet.\n\n1\ndia seguido\n5\nrespostas hoje\n80%\nde acerto\nSou capaz de…\nCumprimentar a qualquer hora do dia. (em revisão)\nEstudo\nUnidades novas por dia\n−\n2\n+\nVelocida"
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Eu",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "cartões vencidos aparecem como revisões",
+  "passou": true,
+  "detalhe": "Sua sessão de hoje\n\n2 revisões e 1 unidade nova · cerca de 11 min\n\nComeçar sessão\nUnidade atual\n\nEl abecedario\n\nO alfabe"
+ },
+ {
+  "teste": "sessão começa pelas revisões",
+  "passou": true,
+  "detalhe": "Revisão 1 de 2"
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Mapa",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "sem rolagem horizontal: Mapa",
+  "passou": true,
+  "detalhe": "[390, 390]"
+ },
+ {
+  "teste": "mapa A1 mostra 107 azulejos",
+  "passou": true,
+  "detalhe": "107"
+ },
+ {
+  "teste": "mapa B1 mostra a estrutura",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "'Já conheço' vai direto à prática",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "ilustração OpenMoji carrega",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Vocabulário",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "sem artigo é corrigido com aviso de artigo",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "acessibilidade sem violações graves: Contrastes",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "filtro de contrastes funciona",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "todos os tipos de exercício foram respondidos",
+  "passou": true,
+  "detalhe": "{'vocab', 'montar', 'ouvir', 'escolha-inline', 'tonica', 'digitar', 'escolha'}"
+ },
+ {
+  "teste": "cópia de segurança exportada",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "apagar zera o progresso",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "restaurar recupera o progresso",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "abre sem internet",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "ilustrações guardadas para uso offline",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "sem erros de JavaScript",
+  "passou": true,
+  "detalhe": ""
+ },
+ {
+  "teste": "sem rolagem horizontal: #hoje em 360px",
+  "passou": true,
+  "detalhe": "[360, 360]"
+ },
+ {
+  "teste": "sem rolagem horizontal: #mapa em 360px",
+  "passou": true,
+  "detalhe": "[360, 360]"
+ },
+ {
+  "teste": "sem rolagem horizontal: #contrastes em 360px",
+  "passou": true,
+  "detalhe": "[360, 360]"
+ },
+ {
+  "teste": "sem rolagem horizontal: #eu em 360px",
+  "passou": true,
+  "detalhe": "[360, 360]"
+ },
+ {
+  "teste": "sem rolagem horizontal: exercício em 360px",
+  "passou": true,
+  "detalhe": "[360, 360]"
+ }
+]

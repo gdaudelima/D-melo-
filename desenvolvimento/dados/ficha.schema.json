@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "app-espanhol/ficha",
+  "title": "Ficha de conhecimento",
+  "description": "Unidade mínima de conteúdo do app. Cada nó do mapa (mapa-a1-c2.json) gera uma ficha por nível em que aparece. Etapa 1 cria só a estrutura (status 'estrutura'); as etapas seguintes preenchem os campos didáticos.",
+  "type": "object",
+  "required": ["id", "no_mapa", "nivel", "modulo", "titulo", "status"],
+  "properties": {
+    "id": {"type": "string", "description": "id do nó + nível, ex.: GRA-01.02@A1"},
+    "no_mapa": {"type": "string", "description": "id do nó no mapa, ex.: GRA-01.02"},
+    "nivel": {"enum": ["A1", "A2", "B1", "B2", "C1", "C2"]},
+    "modulo": {"enum": ["regras", "estrutura-da-frase", "pronuncia-e-escuta", "ortografia", "expressoes", "vocabulario", "leitura-e-escrita", "cultura", "estrategias"]},
+    "titulo": {"type": "object", "required": ["es", "pt"], "properties": {"es": {"type": "string"}, "pt": {"type": "string"}}},
+    "status": {"enum": ["estrutura", "rascunho", "revisado", "validado"], "description": "estrutura = só no mapa; rascunho = conteúdo escrito; revisado = conferido com PCIC/RAE; validado = testado em uso"},
+
+    "objetivo": {"type": "string", "description": "O que a aluna consegue fazer depois, em forma de 'sou capaz de…' (descritor MCER)."},
+    "explicacao": {
+      "type": "object",
+      "description": "Foco na forma: curta, uma ideia por tela (segmentação).",
+      "properties": {
+        "regra": {"type": "string", "maxLength": 400},
+        "contraste_pt": {"type": "string", "description": "O que muda em relação ao português do Brasil."},
+        "esquema": {"type": "string", "description": "id de um esquema visual (linha do tempo, tabela de cores de gênero...)."}
+      }
+    },
+    "exemplos": {
+      "type": "array", "minItems": 2,
+      "items": {
+        "type": "object", "required": ["es", "pt"],
+        "properties": {
+          "es": {"type": "string"},
+          "pt": {"type": "string"},
+          "destaque": {"type": "string", "description": "trecho a sinalizar (pronome, terminação, sílaba tônica)"},
+          "audio": {"type": "string", "description": "arquivo de áudio ou 'tts:es-ES'"},
+          "imagem": {"type": "string", "description": "id da ilustração SVG simples"}
+        }
+      }
+    },
+    "erros_tipicos": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["errado", "certo", "por_que"],
+        "properties": {"errado": {"type": "string"}, "certo": {"type": "string"}, "por_que": {"type": "string"}, "contraste": {"type": "string", "description": "id em contrastes-pt-es.json"}}
+      }
+    },
+    "vocabulario": {
+      "type": "array", "description": "Só para fichas de vocabulário (Nociones específicas/generales).",
+      "items": {
+        "type": "object", "required": ["lema"],
+        "properties": {
+          "lema": {"type": "string"},
+          "artigo": {"enum": ["el", "la", "los", "las", null]},
+          "pt": {"type": "string"},
+          "imagem": {"type": "string"},
+          "audio": {"type": "string"},
+          "concreto": {"type": "boolean", "description": "true = recebe imagem; false = recebe frase em cena (codificação dupla só ajuda em palavras imagináveis)"},
+          "alerta_pt": {"type": "string", "description": "Armadilha para brasileiros (gênero diferente, falso amigo, sílaba tônica)."},
+          "fonte_lexico": {"enum": ["pcic", "complemento"], "description": "pcic = palavra listada no nível pelo PCIC; complemento = acrescentada pelo app (não conferida no PCIC)"},
+          "colocacoes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "exercicios": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["tipo", "enunciado", "resposta"],
+        "properties": {
+          "tipo": {"enum": ["imagem-para-palavra", "lacuna", "montar-frase", "transformar", "achar-o-erro", "ditado", "pares-minimos", "silaba-tonica", "escolha-em-contexto", "producao-livre", "fluencia-cronometrada"]},
+          "vertente": {"enum": ["entrada", "foco-na-forma", "producao", "fluencia"], "description": "Quatro vertentes de Nation"},
+          "enunciado": {"type": "string"},
+          "resposta": {"type": ["string", "array"]},
+          "feedback_erro": {"type": "string", "description": "Explica o erro; cita interferência do PT quando for o caso."}
+        }
+      }
+    },
+    "prerequisitos": {"type": "array", "items": {"type": "string"}, "description": "ids de nós do mapa"},
+    "relacionados": {"type": "array", "items": {"type": "string"}},
+    "contrastes": {"type": "array", "items": {"type": "string"}, "description": "ids em contrastes-pt-es.json"},
+    "variedades": {"type": "string", "description": "Notas de Hispanoamérica (o PCIC parte da variedade centro-norte peninsular)."},
+    "fonte": {
+      "type": "object",
+      "properties": {
+        "pcic_ref": {"type": ["string", "null"]},
+        "url": {"type": "string"},
+        "outras": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "revisao": {"type": "object", "description": "Estado inicial do cartão no agendador FSRS (preenchido pelo app, não pelo conteúdo)."}
+  }
+}
